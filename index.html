@@ -13,6 +13,7 @@ body{
   overflow:hidden;
 }
 
+/* MENU */
 .menu{
   position:fixed;
   top:15px;
@@ -63,6 +64,7 @@ body{
   opacity:1;
 }
 
+/* CONTAINER */
 .game-container{
   height:100vh;
   display:flex;
@@ -70,6 +72,7 @@ body{
   padding-left:40px;
 }
 
+/* CAIXA DO JOGO */
 .game-box{
   width:65%;
   height:88vh;
@@ -83,6 +86,7 @@ body{
   flex-direction:column;
 }
 
+/* IFRAME */
 .game-frame{
   flex:1;
   width:100%;
@@ -90,6 +94,7 @@ body{
   background:black;
 }
 
+/* BARRA INFERIOR */
 .game-info{
   display:flex;
   align-items:center;
@@ -118,6 +123,13 @@ body{
   font-weight:bold;
 }
 
+/* BOTÕES FULLSCREEN E FAVORITO */
+.button-group{
+  display:flex;
+  align-items:center;
+  gap:15px; /* distância entre os botões */
+}
+
 .fullscreen-btn{
   background:rgba(0,0,0,.6);
   border:1px solid rgba(255,255,255,.15);
@@ -128,10 +140,27 @@ body{
   font-size:18px;
   backdrop-filter:blur(10px);
   transition:.2s;
-  margin-right:10px;
 }
 .fullscreen-btn:hover{
   background:rgba(255,255,255,.2);
+}
+
+.favorite-btn{
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,255,255,.15);
+  color:white;
+  border-radius:10px;
+  padding:6px 10px;       /* menor que fullscreen */
+  font-size:16px;          /* menor que fullscreen */
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  transition:.2s;
+}
+.favorite-btn:hover{
+  background:rgba(255,255,255,.2);
+}
+.favorite-btn.favorited{
+  color:#f87171; /* vermelho quando favoritado */
 }
 </style>
 </head>
@@ -158,7 +187,6 @@ body{
 </div>
 
 <div class="game-container">
-
   <div class="game-box">
 
     <iframe 
@@ -173,11 +201,15 @@ body{
         <img src="https://cdn.jsdelivr.net/gh/mathlesson/mathlesson.github.io/img/ragdoll-archers.jpg">
         <div class="game-title">Ragdoll Archers</div>
       </div>
-      <button class="fullscreen-btn" onclick="fullscreenGame()">⛶</button>
+      
+      <div class="button-group">
+        <button class="favorite-btn" id="favoriteBtn" onclick="toggleFavorite()">❤️</button>
+        <button class="fullscreen-btn" onclick="fullscreenGame()">⛶</button>
+      </div>
+      
     </div>
 
   </div>
-
 </div>
 
 <script>
@@ -190,6 +222,11 @@ function fullscreenGame(){
   } else if(iframe.msRequestFullscreen){
     iframe.msRequestFullscreen();
   }
+}
+
+function toggleFavorite(){
+  const btn = document.getElementById("favoriteBtn");
+  btn.classList.toggle("favorited");
 }
 </script>
 
